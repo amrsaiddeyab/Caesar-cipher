@@ -20,7 +20,7 @@ It also highlights important concepts such as string manipulation, ASCII handlin
 
 ## Screenshot
 
-![Caesar Cipher Program](images/caesar-cipher-demo.png)
+![Caesar Cipher Program](Screenshot.png)
 
 *Example output of the Caesar Cipher project in action.*
 
