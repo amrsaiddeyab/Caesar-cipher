@@ -18,9 +18,8 @@ __all__ = [
     "number_in_range_validation",
     "non_empty_validation",
     "name_validation",
-    "yes_no_validation",
     "remove_duplicates",
-    "again_validation",
+    "true_false_validation",
 ]
 
 def positive_digit_validation(number: str) -> int:
@@ -124,25 +123,6 @@ def name_validation(name:str) -> str :
     
     raise ValueError("The name must consist of letters only.")
 
-def yes_no_validation(word:str) -> str :
-    """
-    Check if the input is 'yes' or 'no'.
-
-    Args:
-        word (str): The word to check if it is 'yes' or 'no'.
-
-    Returns:
-        str: The validated word.
-        
-    Raises:
-        ValueError: If the input is not 'yes' or 'no'.
-    """
-
-    if word.lower() in ('no','yes'):
-        return word.lower()
-
-    raise ValueError("You must type 'yes' or 'no'.")  
-
 def remove_duplicates(items:list[Any]) -> list[Any]:
     """
     Remove the duplicates from the list.
@@ -162,12 +142,12 @@ def remove_duplicates(items:list[Any]) -> list[Any]:
 
     return unique_items
 
-def again_validation(again:str) -> bool :
+def true_false_validation(answer:str) -> bool:
     """
     Check if the input is 'yes' or 'no'.
 
     Args:
-        again (str): The word to check if it is 'yes' or 'no'.
+        answer(str): The answer to check if it is 'yes' or 'no'.
 
     Returns:
         bool: True if 'yes', False if 'no'.
@@ -175,8 +155,8 @@ def again_validation(again:str) -> bool :
     Raises:
         ValueError: If the input is not 'yes' or 'no'.
     """
-    again = again.lower()
-    if again in ('yes', 'no'):
-        return again == 'yes'
+    answer = answer.lower()
+    if answer in ('yes', 'no'):
+        return answer == 'yes'
 
     raise ValueError("You must type 'yes' or 'no'")
