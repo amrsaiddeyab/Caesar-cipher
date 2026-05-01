@@ -9,26 +9,83 @@ and all non-alphabetical characters will remain untouched.
 import sys
 from validation import number_in_range_validation, again_validation #import my module
 
-def ascii_code_check (letter_ord, letter_type) :
+def message_type_validation (message_type:str) -> str :
+    '''
+    Check whether the input is valid.
+
+    Args:
+        message_type (str) : The message_type to check.
+
+    Returns:
+        str : The validated message_type.
+
+    Raises :
+        ValueError : if the input is not valid. 
+    '''
+    message_type = message_type.lower()
+
+    if message_type in ('e', 'd') :
+        return message_type
+    
+    raise ValueError("You must type 'e' or 'd'")
+
+
+def ascii_code_check (letter_ord:int, letter_type:str) -> str :
+    '''
+    Check whether the input is in the range.
+
+    Args:
+        letter_ord (int) : The ord(letter).
+        letter_type (str) : The type of the letter (uppercase or lowercase).
+
+    Returns:
+        str : The chr(letter).
+    '''
+
     if letter_type == "upper" :
         if 65 <= letter_ord <= 90 :
             return chr(letter_ord)
         
-        else : 
+        elif letter_ord > 90 : 
             return chr(letter_ord-26) 
+        
+        else :
+            return chr(letter_ord+26)
                
     if 97 <= letter_ord <= 122 :
         return chr(letter_ord)
     
-    else :
+    elif letter_ord > 122 :
         return chr(letter_ord-26)
+    
+    else :
+        return chr(letter_ord+26)
 
 def main() :
 #Taking the input from the user
-    text = input("Enter the message you want to encrypt: ")
+    text = input("Enter the message: ")
+
+    print("What do you want to do with this message?")
+    
+    while True :
+        try :
+            message_type = message_type_validation(input("enter 'e' for (encryption) or 'd' for (decryption) "))
+
+        except ValueError as error :
+            print(f"Invalid input, {error}")
+
+        else :
+            if message_type == 'e' :
+                operation = 1
+
+            else :
+                operation = -1
+            
+            break
+
     while True:
         try :
-            shift = number_in_range_validation(int(input("Enter the cipher shift value (1..25): ")), 0, 25)
+            shift = number_in_range_validation(int(input("Enter the cipher shift value (1..25): ")), 1, 25)
             break
 
         except ValueError as error :
@@ -44,7 +101,7 @@ def main() :
             else :
                 letter_type = "lower"
 
-            letter = ascii_code_check(ord(letter) + shift, letter_type)
+            letter = ascii_code_check(ord(letter) + (shift*operation), letter_type)
             
         message += letter
 
@@ -52,7 +109,7 @@ def main() :
 
     while True:
         try :
-            again = again_validation(input("Do you want to enter another message to encrypt? "))
+            again = again_validation(input("Do you want to enter another message? "))
 
         except ValueError as error :
             print(f"Invalid input, {error}")
