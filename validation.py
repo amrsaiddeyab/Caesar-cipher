@@ -79,7 +79,7 @@ def number_in_range_validation(number: int, start:int, end:int) -> int :
     """
 
     if start <= number <= end :
-        return number
+        return int(number)
     
     if number < start :
         raise ValueError("You cannot enter a number lower than the starting number.")
