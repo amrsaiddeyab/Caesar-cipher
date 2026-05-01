@@ -6,14 +6,15 @@ Moreover, we will let the code preserve the letters' case (lower-case letters wi
 and all non-alphabetical characters will remain untouched.
 '''
 
-from validation import number_in_range_validation #import my module
+import sys
+from validation import number_in_range_validation, again_validation #import my module
 
 def ascii_code_check (letter_ord, letter_type) :
     if letter_type == "upper" :
         if 65 <= letter_ord <= 90 :
             return chr(letter_ord)
         
-        else :
+        else : 
             return chr(letter_ord-26) 
                
     if 97 <= letter_ord <= 122 :
@@ -25,10 +26,13 @@ def ascii_code_check (letter_ord, letter_type) :
 def main() :
 #Taking the input from the user
     text = input("Enter the message you want to encrypt: ")
-    try :
-        shift = number_in_range_validation(input("Enter the cipher shift value (1..25): "), 0, 25)
-    except ValueError as error :
-        print(f"Input invalid, {error}")
+    while True:
+        try :
+            shift = number_in_range_validation(int(input("Enter the cipher shift value (1..25): ")), 0, 25)
+            break
+
+        except ValueError as error :
+            print(f"Input invalid, {error}")
 
     message = ""
     letter_type = None
@@ -45,6 +49,21 @@ def main() :
         message += letter
 
     print(message)
+
+    while True:
+        try :
+            again = again_validation(input("Do you want to enter another message to encrypt? "))
+
+        except ValueError as error :
+            print(f"Invalid input, {error}")
+
+        else :
+            if again == True :
+                main()
+                
+            else :
+                print(f"See you!")
+                sys.exit()
 
 if __name__=="__main__":
     main()
